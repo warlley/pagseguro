@@ -83,6 +83,12 @@ module PagSeguro
     def add(options)
       self << options
     end
+    
+    def total_fees
+      products.inject(0) do |i, product|
+        i +=  product[:fees] ? (product[:quantity] * product[:fees]) : 0
+      end
+    end
 
     private
     def convert_unit(number, unit)

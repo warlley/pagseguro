@@ -91,4 +91,9 @@ describe PagSeguro::Order do
   it "should initialize billing attribute" do
     @order.billing.should be_instance_of(Hash)
   end
+  
+  it "should calculate the fees items" do
+    @order << @product.merge(:quantity => 2, :fees => 0.05)
+    @order.total_fees.should == 10
+  end
 end

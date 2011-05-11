@@ -17,6 +17,8 @@
 			<%= hidden_field_tag "item_frete_#{i}", product[:shipping].to_i if product[:shipping] %>
 		<% end %>
 
+		<%= hidden_field_tag "extras", order.total_fees unless order.total_fees == 0 %>
+
 		<% order.billing.each do |name, value| %>
 			<%= hidden_field_tag PagSeguro::Order::BILLING_MAPPING[name.to_sym], value %>
 		<% end %>

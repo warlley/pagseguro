@@ -27,6 +27,16 @@ describe PagSeguro::Helper do
     @order.shipping_type = "SD"
     subject.should have_input(:name => "tipo_frete", :value => "SD")
   end
+  
+  it "should not include total_fees" do
+    @order << { :id => 1001, :price => 10.00, :description => "Rails 3 e-Book" }
+    subject.should_not have_input(:name => "extras")
+  end
+  
+  it "should include total_fees" do
+    @order << { :id => 1001, :price => 10.00, :description => "Rails 3 e-Book", :quantity => 2, :fees => 1.5 }
+    subject.should have_input(:name => "extras", :value => "300")
+  end
 
   context "with custom attributes" do
     subject {
